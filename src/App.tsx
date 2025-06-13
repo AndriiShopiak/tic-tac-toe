@@ -22,9 +22,9 @@ function App() {
   const [totalGames, setTotalGames] = useState(0)
   const [pendingNewGame, setPendingNewGame] = useState(false)
 
-  const [timers, , stopTimers, resetTimers] = usePlayerTimers(
+  const [timers, startTimers, stopTimers, resetTimers] = usePlayerTimers(
     currentPlayer,
-    !winner && !pendingNewGame
+    !winner
   )
 
   const handleCellClick = (row: number, col: number) => {
@@ -64,6 +64,9 @@ function App() {
     setWinningLine([])
     setShowModal(false)
     setPendingNewGame(false)
+
+    startTimers()
+
   }
 
   return (
