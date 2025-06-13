@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TurnIndicator from "./components/TurnIndicator";
 import GameBoard from "./components/GameBoard";
 import { checkWinner } from './utils/checkWinner';
 import ResultModal from './components/ResultModal';
-import { formatTime } from './utils/formatTime'
+import { formatTime } from './utils/formatTime';
+import { createEmptyBoard } from './utils/createEmptyBoard';
+import { usePlayerTimers } from './hooks/usePlayerTimers';
 
 export type Player = 'X' | 'O';
 
-const createEmptyBoard = (size: number) =>
-  Array(size).fill(null).map(() => Array(size).fill(null));
 
 function App() {
   const [boardSize, setBoardSize] = useState(3);
@@ -23,26 +23,7 @@ function App() {
   const [totalGames, setTotalGames] = useState(0);
   const [pendingNewGame, setPendingNewGame] = useState(false);
 
-  // Timers
-  const [timers, setTimers] = useState<{ X: number; O: number }>({ X: 0, O: 0 });
-  const [activeTimer, setActiveTimer] = useState<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-  if (winner || pendingNewGame) return
-
-  if (activeTimer) clearInterval(activeTimer)
-
-  const interval = setInterval(() => {
-    setTimers(prev => ({
-      ...prev,
-      [currentPlayer]: prev[currentPlayer] + 1,
-    }))
-  }, 1000)
-
-  setActiveTimer(interval)
-
-  return () => clearInterval(interval)
-}, [currentPlayer, winner, pendingNewGame])
+  const [timers, , stopTimers] = usePlayerTimers(currentPlayer, !winner && !pendingNewGame);
 
 
 
@@ -73,8 +54,7 @@ function App() {
 const handleNewGame = () => {
   if (!winner) setPendingNewGame(true);
 
-  if (activeTimer) clearInterval(activeTimer);
-  setTimers({ X: 0, O: 0 });
+  stopTimers();
 
   setBoard(createEmptyBoard(boardSize));
   setCurrentPlayer('X');
