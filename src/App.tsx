@@ -65,7 +65,16 @@ const handleNewGame = () => {
 
   
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{
+    padding: 20,
+    maxWidth: 500,
+    margin: '0 auto',
+    minHeight: '100vh',
+    backgroundColor: '#f7f7f7',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  }}>
       <TurnIndicator currentPlayer={currentPlayer} />
       <div style={{ marginBottom: 16 }}>
         <button onClick={handleNewGame} disabled={showModal}>Нова гра</button>
