@@ -6,7 +6,7 @@ export function usePlayerTimers(
   isRunning: boolean
 ): [Record<Player, number>, () => void, () => void, () => void] {
   const [timers, setTimers] = useState<Record<Player, number>>({ X: 0, O: 0 })
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const start = () => {
     if (intervalRef.current) clearInterval(intervalRef.current)
