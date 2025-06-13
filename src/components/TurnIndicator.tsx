@@ -6,8 +6,17 @@ type Props = {
 
 export default function TurnIndicator({ currentPlayer }: Props) {
   return (
-    <div style={{ marginBottom: 16, fontSize: '1.2rem' }}>
-      Ходить: гравець {currentPlayer}
+    <div
+      style={{
+        fontSize: '1.2rem',
+        fontWeight: 'bold',
+        marginBottom: 16,
+        textAlign: 'center',
+      }}
+    >
+      Зараз ходить: <span style={{ color: currentPlayer === 'X' ? '#1976d2' : '#d32f2f' }}>
+        гравець {currentPlayer}
+      </span>
     </div>
   )
-}
+};
