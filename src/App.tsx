@@ -3,6 +3,7 @@ import TurnIndicator from "./components/TurnIndicator";
 import GameBoard from "./components/GameBoard";
 import { checkWinner } from './utils/checkWinner';
 import ResultModal from './components/ResultModal';
+import { formatTime } from './utils/formatTime'
 
 export type Player = 'X' | 'O';
 
@@ -106,8 +107,8 @@ const handleNewGame = () => {
         </select>
       </div>
       <div style={{ marginBottom: 16 }}>
-        <div>⏱️ Час гравця X: {timers.X} сек</div>
-        <div>⏱️ Час гравця O: {timers.O} сек</div>
+        <div>⏱️ Час гравця X: {formatTime(timers.X)} сек</div>
+        <div>⏱️ Час гравця O: {formatTime(timers.O)} сек</div>
       </div>
       <GameBoard board={board} onCellClick={handleCellClick} />
       {showModal && winner && (

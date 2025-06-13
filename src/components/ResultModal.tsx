@@ -1,3 +1,4 @@
+import { formatTime } from "../utils/formatTime";
 
 
 type Props = {
@@ -31,8 +32,8 @@ export default function ResultModal({ winner, onClose, timers }: Props) {
       >
         <h2>
           {winner === 'draw'
-            ? `Нічия! Загальний час гри: ${timers.X + timers.O} сек`
-            : `Гравець ${winner} переміг. Вітаємо! Час: ${timers[winner as 'X' | 'O']} сек`}
+            ? `Нічия! Загальний час гри: ${formatTime(timers.X + timers.O)} сек`
+            : `Гравець ${winner} переміг. Вітаємо! Час: ${formatTime(timers[winner as 'X' | 'O'])} сек`}
         </h2>
 
         <button style={{ marginTop: 16 }} onClick={onClose}>
