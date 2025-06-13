@@ -1,20 +1,51 @@
-import type { Player } from '../App'
+import type { Player } from '../App';
 
-export function checkWinner(board: (Player | null)[][], size: number): Player | 'draw' | null {
-  
+export function checkWinner(board: (Player | null)[][], size: number): {
+  winner: Player | 'draw' | null
+  line: [number, number][] // координати клітинок
+} {
+  // Перевірка горизонталі та вертикалі
   for (let i = 0; i < size; i++) {
-    if (board[i].every(cell => cell && cell === board[i][0])) return board[i][0]
-    if (board.every(row => row[i] && row[i] === board[0][i])) return board[0][i]
+    if (
+      board[i].every(cell => cell && cell === board[i][0])
+    ) {
+      return {
+        winner: board[i][0],
+        line: board[i].map((_, col) => [i, col]),
+      }
+    }
+
+    if (
+      board.every(row => row[i] && row[i] === board[0][i])
+    ) {
+      return {
+        winner: board[0][i],
+        line: board.map((_, row) => [row, i]),
+      }
+    }
   }
 
-  
-  if (board.every((row, i) => row[i] && row[i] === board[0][0])) return board[0][0]
-  
-  if (board.every((row, i) => row[size - 1 - i] && row[size - 1 - i] === board[0][size - 1]))
-    return board[0][size - 1]
+  // Діагональ ↘
+  if (board.every((row, i) => row[i] && row[i] === board[0][0])) {
+    return {
+      winner: board[0][0],
+      line: board.map((_, i) => [i, i]),
+    }
+  }
 
-  
-  if (board.flat().every(cell => cell)) return 'draw'
+  // Діагональ ↙
+  if (board.every((row, i) => row[size - 1 - i] && row[size - 1 - i] === board[0][size - 1])) {
+    return {
+      winner: board[0][size - 1],
+      line: board.map((_, i) => [i, size - 1 - i]),
+    }
+  }
 
-  return null
+  // Нічия
+  if (board.flat().every(cell => cell)) {
+    return { winner: 'draw', line: [] }
+  }
+
+  return { winner: null, line: [] }
 }
+

@@ -4,9 +4,10 @@ import "../index.css";
 type Props = {
   value: Player | null
   onClick: () => void
+  isHighlighted?: boolean
 }
 
-export default function GameCell({ value, onClick }: Props) {
+export default function GameCell({ value, onClick, isHighlighted }: Props) {
   return (
     <button
       onClick={onClick}
@@ -16,12 +17,15 @@ export default function GameCell({ value, onClick }: Props) {
         fontSize: '2rem',
         fontWeight: 'bold',
         cursor: value ? 'default' : 'pointer',
-        backgroundColor: '#fff',
         border: '2px solid #ccc',
         borderRadius: 6,
-        transition: 'background-color 0.2s',
+        backgroundColor: isHighlighted ? '#ffeb3b' : '#fff',
+        boxShadow: isHighlighted
+          ? '0 0 10px 2px rgba(255, 235, 59, 0.7)'
+          : 'none',
+        transition: 'all 0.2s ease',
       }}
-      disabled={!!value}
+        disabled={!!value}
     >
       {value && (
         <span
