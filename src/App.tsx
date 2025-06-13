@@ -69,14 +69,14 @@ function App() {
   return (
     <div
       style={{
-        padding: 20,
-        maxWidth: 500,
+        padding: 16,
+        maxWidth: '100%',
         margin: '0 auto',
-        minHeight: '100vh',
         backgroundColor: '#f7f7f7',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
       }}
     >
       <h1 style={{ textAlign: 'center' }}>Хрестики-Нолики</h1>

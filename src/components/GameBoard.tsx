@@ -10,7 +10,7 @@ type Props = {
 
 export default function GameBoard({ board, onCellClick, winningLine }: Props) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${board.length}, 80px)`, gap: 5 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${board.length}, min(20vw, 80px))`, gap: 5, justifyContent: 'center' }}>
       {board.map((row, rowIndex) =>
         row.map((cell, colIndex) => (
           <GameCell

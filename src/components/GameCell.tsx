@@ -12,9 +12,9 @@ export default function GameCell({ value, onClick, isHighlighted }: Props) {
     <button
       onClick={onClick}
       style={{
-        width: 80,
-        height: 80,
-        fontSize: '2rem',
+        width: 'min(20vw, 80px)',
+        height: 'min(20vw, 80px)',
+        fontSize: 'min(10vw, 2rem)',
         fontWeight: 'bold',
         cursor: value ? 'default' : 'pointer',
         border: '2px solid #ccc',
