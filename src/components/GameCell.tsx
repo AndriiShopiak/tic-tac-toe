@@ -26,7 +26,7 @@ export default function GameCell({ value, onClick }: Props) {
       {value && (
         <span
           style={{
-            animation: 'popIn 0.2s ease',
+            animation: 'popIn 0.5s ease',
           }}
         >
           {value}
