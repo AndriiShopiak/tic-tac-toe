@@ -3,9 +3,10 @@
 type Props = {
   winner: string
   onClose: () => void
+  timers: { X: number; O: number }
 }
 
-export default function ResultModal({ winner, onClose }: Props) {
+export default function ResultModal({ winner, onClose, timers }: Props) {
   return (
     <div
       onClick={onClose}
@@ -30,9 +31,10 @@ export default function ResultModal({ winner, onClose }: Props) {
       >
         <h2>
           {winner === 'draw'
-            ? 'Нічия! Спробуйте ще :)'
-            : `Гравець ${winner} переміг. Вітаємо!`}
+            ? `Нічия! Загальний час гри: ${timers.X + timers.O} сек`
+            : `Гравець ${winner} переміг. Вітаємо! Час: ${timers[winner as 'X' | 'O']} сек`}
         </h2>
+
         <button style={{ marginTop: 16 }} onClick={onClose}>
           OK
         </button>

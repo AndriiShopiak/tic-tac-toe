@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TurnIndicator from "./components/TurnIndicator";
 import GameBoard from "./components/GameBoard";
 import { checkWinner } from './utils/checkWinner';
@@ -11,7 +11,7 @@ const createEmptyBoard = (size: number) =>
 
 function App() {
   const [boardSize, setBoardSize] = useState(3);
-  
+
   const [board, setBoard] = useState<(Player | null)[][]>(() => createEmptyBoard(boardSize));
   const [currentPlayer, setCurrentPlayer] = useState<Player>('X');
 
@@ -21,6 +21,28 @@ function App() {
   const [wins, setWins] = useState<{ X: number; O: number }>({ X: 0, O: 0 });
   const [totalGames, setTotalGames] = useState(0);
   const [pendingNewGame, setPendingNewGame] = useState(false);
+
+  // Timers
+  const [timers, setTimers] = useState<{ X: number; O: number }>({ X: 0, O: 0 });
+  const [activeTimer, setActiveTimer] = useState<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+  if (winner || pendingNewGame) return
+
+  if (activeTimer) clearInterval(activeTimer)
+
+  const interval = setInterval(() => {
+    setTimers(prev => ({
+      ...prev,
+      [currentPlayer]: prev[currentPlayer] + 1,
+    }))
+  }, 1000)
+
+  setActiveTimer(interval)
+
+  return () => clearInterval(interval)
+}, [currentPlayer, winner, pendingNewGame])
+
 
 
   const handleCellClick = (row: number, col: number) => {
@@ -50,11 +72,14 @@ function App() {
 const handleNewGame = () => {
   if (!winner) setPendingNewGame(true);
 
-  setBoard(createEmptyBoard(boardSize))
-  setCurrentPlayer('X')
-  setWinner(null)
-  setShowModal(false)
-  setPendingNewGame(false)
+  if (activeTimer) clearInterval(activeTimer);
+  setTimers({ X: 0, O: 0 });
+
+  setBoard(createEmptyBoard(boardSize));
+  setCurrentPlayer('X');
+  setWinner(null);
+  setShowModal(false);
+  setPendingNewGame(false);
 }
 
   
@@ -80,10 +105,17 @@ const handleNewGame = () => {
           ))}
         </select>
       </div>
-
+      <div style={{ marginBottom: 16 }}>
+        <div>⏱️ Час гравця X: {timers.X} сек</div>
+        <div>⏱️ Час гравця O: {timers.O} сек</div>
+      </div>
       <GameBoard board={board} onCellClick={handleCellClick} />
       {showModal && winner && (
-        <ResultModal winner={winner} onClose={() => setShowModal(false)} />
+        <ResultModal
+          winner={winner}
+          timers={timers}
+          onClose={() => setShowModal(false)}
+        />
       )}
     </div>
   )
