@@ -1,54 +1,52 @@
-# React + TypeScript + Vite
+# Tic-Tac-Toe — React + TypeScript Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern implementation of the classic **Tic-Tac-Toe** game built with **React**, **TypeScript**, and **Vite**. Supports two players, dynamic board sizing, individual timers, win tracking, and responsive UI.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎮 Features
 
-## Expanding the ESLint configuration
+- ✅ Two-player local game (Player 1: X, Player 2: O)
+- ✅ Display of current turn
+- ✅ Victory tracking per player
+- ✅ Display of total completed games
+- ✅ Modal window showing the result after each match (Win / Draw)
+- ✅ Responsive 3×3 to 9×9 board selector
+- ✅ Individual timers per player that pause/resume correctly
+- ✅ Time displayed in `mm:ss` format
+- ✅ Timer reset on "New Game"
+- ✅ Highlighted winning line with animation
+- ✅ "New Game" button resets the board (but not score unless game ends)
+- ✅ Adaptive layout for mobile devices
+- ✅ Favicon with tic-tac-toe grid icon
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📦 Stack
+
+- **React** + **TypeScript**
+- **Vite** for fast development
+- **Custom Hooks** for timer logic
+- **CSS Grid** for dynamic board rendering
+- **Modular components** and utility functions
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/AndriiShopiak/tic-tac-toe.git
+cd tic-tac-toe
 ```
+### 2. Install dependencies
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+```bash
+npm install
+```
+### 3. Run the app locally
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run dev
 ```
