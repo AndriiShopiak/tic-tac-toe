@@ -1,4 +1,5 @@
-import type { Player } from '../App'
+import type { Player } from '../App';
+import "../index.css";
 
 type Props = {
   value: Player | null
@@ -22,7 +23,15 @@ export default function GameCell({ value, onClick }: Props) {
       }}
       disabled={!!value}
     >
-      {value}
+      {value && (
+        <span
+          style={{
+            animation: 'popIn 0.2s ease',
+          }}
+        >
+          {value}
+        </span>
+      )}
     </button>
   )
 }
