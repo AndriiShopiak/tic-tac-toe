@@ -13,9 +13,12 @@ export default function GameCell({ value, onClick }: Props) {
         width: 80,
         height: 80,
         fontSize: '2rem',
-        cursor: 'pointer',
-        backgroundColor: '#f1f1f1',
+        fontWeight: 'bold',
+        cursor: value ? 'default' : 'pointer',
+        backgroundColor: '#fff',
         border: '2px solid #ccc',
+        borderRadius: 6,
+        transition: 'background-color 0.2s',
       }}
       disabled={!!value}
     >
