@@ -68,7 +68,7 @@ const handleNewGame = () => {
     <div style={{ padding: 20 }}>
       <TurnIndicator currentPlayer={currentPlayer} />
       <div style={{ marginBottom: 16 }}>
-        <button onClick={handleNewGame}>Нова гра</button>
+        <button onClick={handleNewGame} disabled={showModal}>Нова гра</button>
       </div>
       <div style={{ marginBottom: 16 }}>
         <div>Гравець 1: ● символ – X ● перемог – {wins.X}</div>
