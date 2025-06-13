@@ -4,7 +4,7 @@ import type { Player } from '../App';
 export function usePlayerTimers(
   currentPlayer: Player,
   isRunning: boolean
-): [Record<Player, number>, () => void, () => void] {
+): [Record<Player, number>, () => void, () => void, () => void] {
   const [timers, setTimers] = useState<Record<Player, number>>({ X: 0, O: 0 })
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -23,6 +23,10 @@ export function usePlayerTimers(
     if (intervalRef.current) clearInterval(intervalRef.current)
   }
 
+  const reset = () => {
+    setTimers({ X: 0, O: 0 })
+  }
+
   useEffect(() => {
     if (isRunning) {
       start()
@@ -33,5 +37,5 @@ export function usePlayerTimers(
     return () => stop()
   }, [currentPlayer, isRunning])
 
-  return [timers, start, stop]
+  return [timers, start, stop, reset]
 }

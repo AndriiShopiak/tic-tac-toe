@@ -22,7 +22,7 @@ function App() {
   const [totalGames, setTotalGames] = useState(0)
   const [pendingNewGame, setPendingNewGame] = useState(false)
 
-  const [timers, , stopTimers] = usePlayerTimers(
+  const [timers, , stopTimers, resetTimers] = usePlayerTimers(
     currentPlayer,
     !winner && !pendingNewGame
   )
@@ -57,6 +57,7 @@ function App() {
     if (!winner) setPendingNewGame(true)
 
     stopTimers()
+    resetTimers()
     setBoard(createEmptyBoard(boardSize))
     setCurrentPlayer('X')
     setWinner(null)
