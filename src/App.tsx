@@ -6,10 +6,13 @@ import ResultModal from './components/ResultModal';
 
 export type Player = 'X' | 'O';
 
-const initialBoard = Array(3).fill(null).map(() => Array(3).fill(null));
+const createEmptyBoard = (size: number) =>
+  Array(size).fill(null).map(() => Array(size).fill(null));
 
 function App() {
-  const [board, setBoard] = useState<(Player | null)[][]>(initialBoard);
+  const [boardSize, setBoardSize] = useState(3);
+  
+  const [board, setBoard] = useState<(Player | null)[][]>(() => createEmptyBoard(boardSize));
   const [currentPlayer, setCurrentPlayer] = useState<Player>('X');
 
   const [winner, setWinner] = useState<Player | 'draw' | null>(null);
@@ -32,7 +35,7 @@ function App() {
     const nextPlayer = currentPlayer === 'X' ? 'O' : 'X'
     setCurrentPlayer(nextPlayer)
 
-    const result = checkWinner(newBoard, 3)
+    const result = checkWinner(newBoard, boardSize);
     if (result) {
       setWinner(result);
       setTimeout(() => setShowModal(true), 2000);
@@ -47,7 +50,7 @@ function App() {
 const handleNewGame = () => {
   if (!winner) setPendingNewGame(true);
 
-  setBoard(initialBoard)
+  setBoard(createEmptyBoard(boardSize))
   setCurrentPlayer('X')
   setWinner(null)
   setShowModal(false)
@@ -66,6 +69,18 @@ const handleNewGame = () => {
         <div>Гравець 2: ● символ – O ● перемог – {wins.O}</div>
         <div>Зіграно ігор: {totalGames}</div>
       </div>
+      <div style={{ marginBottom: 16 }}>
+        <label>Розмір сітки: </label>
+        <select
+          value={boardSize}
+          onChange={(e) => setBoardSize(Number(e.target.value))}
+        >
+          {Array.from({ length: 7 }, (_, i) => i + 3).map(size => (
+            <option key={size} value={size}>{size}×{size}</option>
+          ))}
+        </select>
+      </div>
+
       <GameBoard board={board} onCellClick={handleCellClick} />
       {showModal && winner && (
         <ResultModal winner={winner} onClose={() => setShowModal(false)} />
